@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqk6vspsv0sl4"]
+[gd_scene load_steps=3 format=3 uid="uid://dykf2dwoxcfvw"]
 
-[ext_resource type="Script" path="res://src/Bullet.gd" id="1_hihiw"]
+[ext_resource type="Script" path="res://src/Bullet.gd" id="1_88qjj"]
 [ext_resource type="Texture2D" uid="uid://bnd5rxg50dkpw" path="res://resources/bullet.png" id="2_3y632"]
 
 [node name="Bullet" type="Area2D"]
-script = ExtResource("1_hihiw")
+script = ExtResource("1_88qjj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
