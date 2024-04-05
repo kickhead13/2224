@@ -52,12 +52,17 @@ func player_movement(delta):
 	input = get_input()
 	#partea care da slow down la caracter
 	if input == Vector2.ZERO:
+		$AnimatedSprite2D.animation = "idle_airship"
+		$AnimatedSprite2D.stop()
 		if velocity.length() > (friction * delta):
 			velocity -= velocity.normalized() * (friction * delta)
 		else:
 			velocity = Vector2.ZERO
 	#partea care da speed la caracter
 	else:
+		if $AnimatedSprite2D.animation != "moving_airship":
+			$AnimatedSprite2D.animation = "moving_airship"
+			$AnimatedSprite2D.play()
 		velocity += (input * acceleration * delta)
 		velocity = velocity.limit_length(speed)
 	
@@ -74,3 +79,17 @@ func shoot():
 	var b = Bullet.instantiate()
 	add_child(b)
 	b.transform = transform
+
+func _on_Area2D_area_entered(body):
+	print("test")
+	#if body.TYPE == "rec":
+	#	print("rec")
+	#else:
+	#	print("waste")	
+
+
+func _on_area_2d_area_entered(area):
+	print("test")
+	if area.is_in_group("recycle") :
+		area.get_parent().queue_free()
+		bullet_count = MAX_INITIAL_BULLETS
