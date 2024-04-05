@@ -1,11 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1d37y1duaxgd"]
+[gd_scene load_steps=10 format=3 uid="uid://c1d37y1duaxgd"]
 
 [ext_resource type="Script" path="res://src/CharacterBody2D.gd" id="1_3hne3"]
-[ext_resource type="Texture2D" uid="uid://cv36ytrf1586s" path="res://resources/spaceship.png" id="2_7bd5c"]
+[ext_resource type="Texture2D" uid="uid://bhnljmr8yjtu0" path="res://resources/Ship_frame_1.png" id="2_cx7ec"]
+[ext_resource type="Texture2D" uid="uid://d3q57oqw2vwda" path="res://resources/Ship_frame_2.png" id="3_yekfl"]
+[ext_resource type="Texture2D" uid="uid://bsmdbtddsluev" path="res://resources/Ship_frame_3.png" id="4_4642y"]
+[ext_resource type="Texture2D" uid="uid://wxkrow5h27g8" path="res://resources/Ship_frame_4.png" id="5_jkmpj"]
+[ext_resource type="Texture2D" uid="uid://dyh080thgoqhr" path="res://resources/Ship_frame_5.png" id="6_aof1t"]
+[ext_resource type="Texture2D" uid="uid://m2s40n5gim6h" path="res://resources/Ship_frame_6.png" id="7_d7bem"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_udlbt"]
 radius = 17.0
 height = 68.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tposp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cx7ec")
+}],
+"loop": true,
+"name": &"idle_airship",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yekfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4642y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jkmpj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aof1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_d7bem")
+}],
+"loop": true,
+"name": &"moving_airship",
+"speed": 9.88
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3hne3")
@@ -13,10 +49,15 @@ script = ExtResource("1_3hne3")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_7bd5c")
+texture = ExtResource("2_cx7ec")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_udlbt")
 
 [node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tposp")
+animation = &"idle_airship"
