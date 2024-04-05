@@ -7,12 +7,26 @@ const friction = 300
 var mouse_position = null
 var screen_size #dimensiunea jocului
 
+const EDGE_OFFSET = 30
+
 func _ready():
 	screen_size = get_viewport_rect().size
 	
 func _physics_process(delta):
+	screen_size = get_viewport_rect().size
 	player_movement(delta)
-
+	if position.x < EDGE_OFFSET:
+		position.x = EDGE_OFFSET
+		velocity = Vector2.ZERO
+	if position.y < EDGE_OFFSET:
+		position.y = EDGE_OFFSET
+		velocity = Vector2.ZERO
+	if position.y > screen_size.y - EDGE_OFFSET:
+		position.y = screen_size.y - EDGE_OFFSET
+		velocity = Vector2.ZERO
+	if position.x > screen_size.x - EDGE_OFFSET:
+		position.x = screen_size.x - EDGE_OFFSET
+		velocity = Vector2.ZERO
 
 func get_input():
 	input = Vector2(0,0)
