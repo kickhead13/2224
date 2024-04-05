@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 400
+var Bullet = preload("res://src/bullet.tscn")
 var input = Vector2.ZERO
 const acceleration = 1500
 const friction = 300
@@ -8,6 +9,7 @@ var mouse_position = null
 var screen_size #dimensiunea jocului
 
 const EDGE_OFFSET = 30
+
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -57,9 +59,12 @@ func player_movement(delta):
 		velocity = velocity.limit_length(speed)
 	
 	move_and_slide()
-		
-	"""velocity = velocity.normalized() * speed
-	#update the position of the player, and clamp it so that it can not leave the screen
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO,screen_size)"""
 	
+	#bullet spawn
+	#if Input.is_action_just_pressed("shoot"):
+		#shoot()
+
+func shoot():
+	var b = Bullet.instantiate()
+	add_child(b)
+	b.transform = transform
