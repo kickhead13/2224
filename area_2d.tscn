@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwkcj268f21hr"]
 
 [ext_resource type="Script" path="res://Area2D.gd" id="1_q8yyi"]
-[ext_resource type="Texture2D" uid="uid://dheeklbkcn5n3" path="res://WhatsApp Image 2024-04-05 at 18.36.22.jpeg" id="2_200hs"]
+[ext_resource type="Texture2D" uid="uid://cv36ytrf1586s" path="res://spaceship.png" id="2_p8fa2"]
 
-[node name="Area2D" type="Area2D"]
+[node name="Player" type="Area2D"]
 script = ExtResource("1_q8yyi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-texture = ExtResource("2_200hs")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_p8fa2")

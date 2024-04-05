@@ -1,10 +1,9 @@
-"""extends Area2D
+extends CharacterBody2D
 
-@export var speed = 200
+@export var speed = 400
 var input = Vector2.ZERO
-var velocity = 0
 const acceleration = 1500
-const friction = 600
+const friction = 300
 var mouse_position = null
 var screen_size #dimensiunea jocului
 
@@ -31,7 +30,7 @@ func get_input():
 func player_movement(delta):
 	mouse_position = get_global_mouse_position()
 	look_at(mouse_position)
-	
+	input = get_input()
 	#partea care da slow down la caracter
 	if input == Vector2.ZERO:
 		if velocity.length() > (friction * delta):
@@ -45,7 +44,7 @@ func player_movement(delta):
 	
 	move_and_slide()
 		
-	velocity = velocity.normalized() * speed
+	"""velocity = velocity.normalized() * speed
 	#update the position of the player, and clamp it so that it can not leave the screen
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO,screen_size)"""
