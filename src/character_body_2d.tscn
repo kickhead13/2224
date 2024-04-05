@@ -18,3 +18,5 @@ texture = ExtResource("2_7bd5c")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2)
 shape = SubResource("CapsuleShape2D_udlbt")
+
+[node name="Marker2D" type="Marker2D" parent="."]
