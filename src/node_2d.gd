@@ -9,6 +9,7 @@ func _ready():
 
 
 func _process(delta):
+	print(Input)
 	if Input.is_action_just_pressed("shoot"):
 		var bullet = Bullet.instantiate()
 		bullet.position = player.position
