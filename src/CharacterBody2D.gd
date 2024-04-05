@@ -7,8 +7,9 @@ const acceleration = 1500
 const friction = 300
 var mouse_position = null
 var screen_size #dimensiunea jocului
-
-const EDGE_OFFSET = 30
+const MAX_INITIAL_BULLETS = 10
+var bullet_count = MAX_INITIAL_BULLETS
+const EDGE_OFFSET = 60
 
 
 func _ready():
@@ -29,6 +30,8 @@ func _physics_process(delta):
 	if position.x > screen_size.x - EDGE_OFFSET:
 		position.x = screen_size.x - EDGE_OFFSET
 		velocity = Vector2.ZERO
+
+
 
 func get_input():
 	input = Vector2(0,0)
@@ -59,6 +62,9 @@ func player_movement(delta):
 		velocity = velocity.limit_length(speed)
 	
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("bullet_count_reset"):
+		bullet_count=MAX_INITIAL_BULLETS
 	
 	#bullet spawn
 	#if Input.is_action_just_pressed("shoot"):
