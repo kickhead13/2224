@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://6widp7blkpvo"]
 
 [ext_resource type="Script" path="res://src/waste_bottle.gd" id="1_3ssaf"]
-[ext_resource type="Texture2D" uid="uid://snqhxuwisswn" path="res://resources/waste_bottle.png" id="1_eyec2"]
+[ext_resource type="Texture2D" uid="uid://dpsvkkey1you2" path="res://resources/waste_battery.png" id="2_yqclh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c8bwp"]
 
@@ -10,7 +10,8 @@ gravity_scale = 0.0
 script = ExtResource("1_3ssaf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_eyec2")
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_yqclh")
 
 [node name="Area2D" type="Area2D" parent="." groups=["waste"]]
 
