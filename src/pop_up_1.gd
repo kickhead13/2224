@@ -1,7 +1,7 @@
 extends Node2D
 
 var Click = preload("res://src/click.tscn")
-var X =preload("res://src/x_node.tscn")
+var X = preload("res://src/x_node.tscn")
 var exit_status = "no exit status"
 
 func _ready():
@@ -9,7 +9,7 @@ func _ready():
 	click.position = Vector2(80, 290)
 	add_child(click)
 	var x = X.instantiate()
-	x.position = Vector2(285, 15)
+	x.position = Vector2(265, 10)
 	add_child(x)
 
 func give_ammo_back():

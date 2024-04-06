@@ -8,7 +8,7 @@ var screen_size #dimensiunea jocului
 var bullet_count = 10
 var EDGE_OFFSET = 60
 
-var hearts_count = max_health
+var hearts_count = 0
 
 const MAX_INITIAL_HEARTS = 10
 
@@ -69,10 +69,10 @@ func handle_mode():
 	mode = "nothing"
 
 func _ready():
+	hearts_count = max_health
 	screen_size = get_viewport_rect().size
 	if get_parent() != null:
 		EDGE_OFFSET = get_parent().CHARACTER_EDGE_OFFSET
-
 
 func _physics_process(delta):
 	handle_label()

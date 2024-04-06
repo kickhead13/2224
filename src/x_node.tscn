@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbhqgduvmcsbb"]
+[gd_scene load_steps=7 format=3 uid="uid://13yusjpw5b0w"]
 
-[ext_resource type="Script" path="res://Node2D.gd" id="1_o37x3"]
+[ext_resource type="Script" path="res://src/xNodeCode.gd" id="1_22fpu"]
+[ext_resource type="Script" path="res://src/xNodeArea.gd" id="2_f3p8n"]
 [ext_resource type="Texture2D" uid="uid://cs2v5oosipmlk" path="res://resources/popup/x1.png" id="2_jxxlq"]
 [ext_resource type="Texture2D" uid="uid://m5sfxr3n276o" path="res://resources/popup/x.png" id="3_18mhu"]
-[ext_resource type="Script" path="res://src/xNodeArea.gd" id="4_4i8xv"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_dk8nt"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfq1d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fl7ac"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -15,23 +17,23 @@ animations = [{
 "texture": ExtResource("3_18mhu")
 }],
 "loop": true,
-"name": &"x_animation",
+"name": &"xnode_animation",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o70tp"]
-
 [node name="xNode" type="Node2D"]
-script = ExtResource("1_o37x3")
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_dk8nt")
-animation = &"x_animation"
+script = ExtResource("1_22fpu")
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("4_4i8xv")
+script = ExtResource("2_f3p8n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_o70tp")
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_pfq1d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_fl7ac")
+animation = &"xnode_animation"
 
 [connection signal="input_event" from="Area2D" to="Area2D" method="_on_input_event"]
