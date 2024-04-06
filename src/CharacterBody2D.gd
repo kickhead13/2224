@@ -25,8 +25,23 @@ const MALWARE = [
 	"lower_speed"
 ]
 var param1 = 0
+var label_timer = 180
+
+func change_label(string):
+	if get_parent() != null and get_parent().get_child(2):
+		get_parent().get_child(2).text = string
+
+func handle_label():
+	if label_timer > 0:
+		if mode != "nothing":
+			change_label(mode)
+		label_timer -= 0
+	else:
+		change_label(" ")
 
 func handle_mode():
+	if mode != "nothing":
+		label_timer = 180
 	if mode == "invers_control":
 		inverse_control *= -1
 	elif mode == "zero_bullets":
@@ -41,7 +56,7 @@ func handle_mode():
 		MAX_INITIAL_BULLETS += param1
 		bullet_count = MAX_INITIAL_BULLETS
 	elif mode == "lower_speed":
-		if speed > 80:
+		if speed > 150:
 			speed /= param1
 	mode = "nothing"
 
@@ -51,6 +66,7 @@ func _ready():
 		EDGE_OFFSET = get_parent().CHARACTER_EDGE_OFFSET
 	
 func _physics_process(delta):
+	handle_label()
 	handle_mode()
 	screen_size = get_viewport_rect().size
 	player_movement(delta)

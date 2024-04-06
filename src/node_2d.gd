@@ -7,7 +7,7 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
-var mob_spawn_rate = 100
+var mob_spawn_rate = 50
 var popup_spawn_rate = 500
 
 var Bullet = BasicBullet
@@ -23,6 +23,7 @@ var rec_bottles_contor = 0
 var number_of_mobs = 20
 var rand_scale = [0.6 , 0.7 , 0.8 , 0.9 , 1 , 1.2 , 1.4 , 1.5 , 1.6 , 1.7, 1.8]
 var rand_health = [4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22, 24]
+var label = null
 
 const BULLET_ROW = 10
 const BULLET_COLUMN = 20
@@ -98,6 +99,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	player.position = Vector2(300,500)
 	add_child(player)
+	label = Label.new() 
+	add_child(label)
 	for i in range(player.MAX_INITIAL_BULLETS / 2):
 		var bullet_display=Bullet_Display.instantiate()
 		add_child(bullet_display)
@@ -145,6 +148,8 @@ func update_score_digits(digits):
 
 func _process(delta):
 	screen_size = get_viewport_rect().size
+	if label != null:
+		label.position = Vector2(screen_size.x/2, 0)
 	if randi_range(0,mob_spawn_rate) == 0:
 		spawn_mobs()
 	if randi_range(0, popup_spawn_rate) == 0:
