@@ -1,11 +1,14 @@
 extends Node2D
+
 var Player = preload("res://src/character_body_2d.tscn")
 var BasicBullet = preload("res://src/bullet.tscn")
-var Bullet = BasicBullet
 var Bullet_Display = preload("res://src/bullet_display.tscn")
 var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
+var PopUp = preload("res://src/pop_up_1.tscn")
+
+var Bullet = BasicBullet
 var player = Player.instantiate()
 var bullet_displays = []
 var score = 234
@@ -40,10 +43,17 @@ func spawn_mobs():
 			waste_bottle.position = Vector2(randf_range(60, screen_size.x - CHARACTER_EDGE_OFFSET), randf_range(60, screen_size.y - CHARACTER_EDGE_OFFSET))
 			add_child(waste_bottle)
 
+
+func spawn_popup(x,y):
+	var popup = PopUp.instantiate()
+	popup.position = Vector2(screen_size.x / 2 - x, screen_size.y / 2 - y)
+	add_child(popup)
+
 func _ready():
 	screen_size = get_viewport_rect().size
 	
 	spawn_mobs()
+	
 	
 	player.position = Vector2(300,500)
 	add_child(player)
@@ -59,6 +69,10 @@ func _ready():
 		digit.position = Vector2(screen_size.x-SCORE_EDGE_OFFSET * (iter + 1), SCORE_EDGE_OFFSET)
 		digits.push_back(digit)
 		add_child(digit)
+	
+	spawn_popup(100, 150)
+	spawn_popup(330, 200)
+	spawn_popup(80, 220)
 
 func refresh_bullet_display():
 	for bullet_display in bullet_displays:
