@@ -1,20 +1,40 @@
 extends CharacterBody2D
 
-const TYPE = "waste"
+var speed = 50
 var health = 10
 var damage = 1
+var inflate_timer = INFLATE_OFFSET
+var player_position
+var target_position
+var player_to_follow = null
+var score = 1
+
+const TYPE = "waste"
 const INFLATE_OFFSET = 5
 const SCALE_OFFSET = 1.2
 const NORMAL_SCALE = 1
-var inflate_timer = INFLATE_OFFSET
 const friction = 300
 const BOUNCE_SPEED = 200
-var score = 1
+const waste_bottle_types_array = ["res://resources/waste_bottle.png"]
+
+func _ready():
+	$Sprite2D.texture = load(waste_bottle_types_array[randi() % waste_bottle_types_array.size()])
+
+
 
 func _on_body_entered(body):
 	print("test")
 
 func _physics_process(delta):
+	if get_parent() != null && player_to_follow == null:
+		player_to_follow = get_parent().get_node("Player")
+	player_position = player_to_follow.position
+	target_position = (player_position - position).normalized()
+	
+	if position.distance_to(player_position) > 3:
+		velocity = Vector2(target_position * speed) 
+		move_and_slide()
+	
 	if inflate_timer > 0:
 		inflate_timer -= 1
 	if inflate_timer == 0 and scale != Vector2(NORMAL_SCALE,NORMAL_SCALE):
