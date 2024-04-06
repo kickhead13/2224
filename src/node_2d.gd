@@ -108,10 +108,6 @@ func _ready():
 		digit.position = Vector2(screen_size.x-SCORE_EDGE_OFFSET * (iter + 1), SCORE_EDGE_OFFSET)
 		digits.push_back(digit)
 		add_child(digit)
-	
-	spawn_popup(-20, -20)
-	spawn_popup(290, 290)
-	spawn_popup(80, 220)
 
 func refresh_bullet_display():
 	for bullet_display in bullet_displays:
