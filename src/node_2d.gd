@@ -34,6 +34,7 @@ const POPUP_UPPER_LIMIT = 290
 
 
 func spawn_mobs():
+	print("????")
 	var x=0
 	var y=0
 	var x_negative=0
@@ -91,9 +92,9 @@ func spawn_popup(x,y):
 	add_child(popup)
 
 func _ready():
+	Engine.max_fps=60
 	screen_size = get_viewport_rect().size
-	
-	spawn_mobs()
+
 	
 	
 	player.position = Vector2(300,500)
@@ -154,7 +155,7 @@ func _process(delta):
 	if last_score != score:
 		update_score_digits(digits)
 		#init_spawner_pos()
-
+	#print(Engine.get_frames_per_second())
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
 		player.bullet_count -= 1
