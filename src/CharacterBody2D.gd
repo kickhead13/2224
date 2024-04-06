@@ -10,6 +10,7 @@ var screen_size #dimensiunea jocului
 const MAX_INITIAL_BULLETS = 10
 var bullet_count = MAX_INITIAL_BULLETS
 const EDGE_OFFSET = 60
+var health = 10
 
 
 func _ready():
@@ -87,9 +88,17 @@ func _on_Area2D_area_entered(body):
 	#else:
 	#	print("waste")	
 
+func hit(damage):
+	health -= damage
+	if health <= 0:
+		get_tree().quit()
 
 func _on_area_2d_area_entered(area):
-	print("test")
 	if area.is_in_group("recycle") :
 		area.get_parent().queue_free()
 		bullet_count = MAX_INITIAL_BULLETS
+	if area.is_in_group("waste"):
+		hit(area.get_parent().damage)
+		area.get_parent().velocity = velocity
+		velocity = Vector2.ZERO
+		print(velocity)

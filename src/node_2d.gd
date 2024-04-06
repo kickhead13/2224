@@ -17,6 +17,7 @@ func _ready():
 	add_child(rec_bottle)
 	
 	rec_bottle = Waste_Bottle.instantiate()
+	
 	rec_bottle.position = Vector2(700, 300)
 	add_child(rec_bottle)
 	
