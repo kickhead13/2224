@@ -9,25 +9,32 @@ var player = Player.instantiate()
 var bullet_displays = []
 const BULLET_ROW = 30
 const BULLET_COLUMN = 30
-const BULLET_COLUMN_OFFSET = 50
+const BULLET_COLUMN_OFFSET = 50	
+var number_of_mobs = 20
+const CHARACTER_EDGE_OFFSET = 60
+const MAX_REC_BOTTLES = 5
+var screen_size = 0
+
+
+func spawn_mobs():
+	screen_size = get_viewport_rect().size
+	var rec_bottles_contor = 0
+	
+	for i in number_of_mobs:
+		var choose_mob = randi() % 2 + 1
+		if(choose_mob == 1 && rec_bottles_contor != MAX_REC_BOTTLES):
+			rec_bottles_contor += 1
+			var rec_bottle = Rec_Bottle.instantiate()
+			rec_bottle.position = Vector2(randf_range(60, screen_size.x - CHARACTER_EDGE_OFFSET), randf_range(60, screen_size.y-CHARACTER_EDGE_OFFSET))
+			add_child(rec_bottle)
+		else:
+			var waste_bottle = Waste_Bottle.instantiate()
+			waste_bottle.position = Vector2(randf_range(60, screen_size.x - CHARACTER_EDGE_OFFSET), randf_range(60, screen_size.y - CHARACTER_EDGE_OFFSET))
+			add_child(waste_bottle)
+
 
 func _ready():
-	var rec_bottle = Waste_Bottle.instantiate()
-	rec_bottle.position = Vector2(300, 400)
-	add_child(rec_bottle)
-	
-	rec_bottle = Waste_Bottle.instantiate()
-	
-	rec_bottle.position = Vector2(700, 300)
-	add_child(rec_bottle)
-	
-	rec_bottle = Waste_Bottle.instantiate()
-	rec_bottle.position = Vector2(1200, 900)
-	add_child(rec_bottle)
-	
-	rec_bottle = Rec_Bottle.instantiate()
-	rec_bottle.position = Vector2(1200, 100)
-	add_child(rec_bottle)
+	spawn_mobs()
 	
 	player.position = Vector2(300,500)
 	add_child(player)
@@ -51,6 +58,7 @@ func refresh_bullet_display():
 		bullet_displays.push_back(bullet_display)
 
 func _process(delta):
+	screen_size = get_viewport_rect().size
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
 		player.bullet_count -= 1
@@ -58,4 +66,5 @@ func _process(delta):
 		bullet.position = player.position
 		bullet.rotation = player.rotation
 		add_child(bullet)
+	
 	
