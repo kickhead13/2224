@@ -7,6 +7,11 @@ var mouse_position = null
 var screen_size #dimensiunea jocului
 var bullet_count = 10
 var EDGE_OFFSET = 60
+
+var hearts_count = max_health
+
+const MAX_INITIAL_HEARTS = 10
+
 var max_health = 10
 var health = max_health
 var inverse_control = 1
@@ -16,6 +21,7 @@ var friction = 300
 var heat = 0
 
 const OVERHEAT = 20
+
 const acceleration = 1500
 const MALWARE = [
 	"invers_control",
@@ -66,7 +72,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	if get_parent() != null:
 		EDGE_OFFSET = get_parent().CHARACTER_EDGE_OFFSET
-	
+
+
 func _physics_process(delta):
 	handle_label()
 	handle_mode()

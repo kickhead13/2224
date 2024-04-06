@@ -7,13 +7,18 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
+
+var Hearts_Display = preload("res://src/hearts_display.tscn")
+
 var Terminal = preload("res://src/terminal.tscn")
 var mob_spawn_rate = 50
 var popup_spawn_rate = 500
 
+
 var Bullet = BasicBullet
 var player = Player.instantiate()
 var bullet_displays = []
+var heart_displays = []
 var score = 0
 var digits = []
 var screen_size = 0
@@ -33,8 +38,14 @@ const SCORE_EDGE_OFFSET = 18
 const NUM_OF_DIGITS = 6
 const CHARACTER_EDGE_OFFSET = 60
 const MAX_REC_BOTTLES = 2
+
+const HEARTS_ROW =70
+const HEARTS_COLUMN = 20
+const HEARTS_COLUMN_OFFSET = 25
+
 const POPUP_LOWER_LIMIT = -20
 const POPUP_UPPER_LIMIT = 290
+
 
 
 func spawn_mobs():
@@ -87,6 +98,7 @@ func spawn_mobs():
 		waste_bottle.health = rand_health[index]
 		waste_bottle.NORMAL_SCALE = rand_scale[index]
 		waste_bottle.score = rand_health[index]
+		waste_bottle.damage = rand_health[index]/3
 		add_child(waste_bottle)
 
 
@@ -108,6 +120,13 @@ func _ready():
 		bullet_display.position.y = BULLET_ROW
 		bullet_display.position.x = BULLET_COLUMN + BULLET_COLUMN_OFFSET * i
 		bullet_displays.push_back(bullet_display)
+		
+	for i in range(player.MAX_INITIAL_HEARTS):
+		var heart_display = Hearts_Display.instantiate()
+		add_child(heart_display)
+		heart_display.position.y = HEARTS_ROW
+		heart_display.position.x = HEARTS_COLUMN + HEARTS_COLUMN_OFFSET * i
+		heart_displays.push_back(heart_display)
 	
 	for iter in range(NUM_OF_DIGITS):
 		var digit = Digit.instantiate()
@@ -125,6 +144,19 @@ func refresh_bullet_display():
 		bullet_display.position.y = BULLET_ROW
 		bullet_display.position.x = BULLET_COLUMN + BULLET_COLUMN_OFFSET * i
 		bullet_displays.push_back(bullet_display)
+
+
+func refresh_hearts_display():
+	for heart_display in heart_displays:
+		if heart_display != null:
+			heart_display.queue_free()
+	for i in range((player.hearts_count+1)):
+		var heart_display = Hearts_Display.instantiate()
+		add_child(heart_display)
+		heart_display.position.y = HEARTS_ROW
+		heart_display.position.x = HEARTS_COLUMN + HEARTS_COLUMN_OFFSET * i
+		heart_displays.push_back(heart_display)
+
 
 func replace(digits, screen_size):
 	var iter = 0
@@ -175,4 +207,7 @@ func _process(delta):
 	last_screen_size = screen_size
 	last_score = score
 	
-	
+	refresh_hearts_display()
+	if player.hearts_count > 0:
+		player.hearts_count = player.health
+		

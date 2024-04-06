@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://joep67uy6msy"]
+
+[ext_resource type="Texture2D" uid="uid://clc7iyi33hqx4" path="res://resources/heart_full.png" id="1_dy5l6"]
+
+[node name="Hearts_Display" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dy5l6")
