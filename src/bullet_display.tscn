@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5nbxkhdeve04"]
 
-[ext_resource type="Texture2D" uid="uid://d0dbsipahoir5" path="res://resources/icon.svg" id="1_ftft4"]
+[ext_resource type="Texture2D" uid="uid://b5a1hntx5a1fj" path="res://resources/icon.svg" id="1_ftft4"]
 
 [node name="Bullet_Display" type="RigidBody2D"]
 gravity_scale = 0.0

@@ -3,14 +3,15 @@ extends CharacterBody2D
 @export var speed = 400
 var Bullet = preload("res://src/bullet.tscn")
 var input = Vector2.ZERO
-const acceleration = 1500
-const friction = 300
 var mouse_position = null
 var screen_size #dimensiunea jocului
-const MAX_INITIAL_BULLETS = 10
 var bullet_count = MAX_INITIAL_BULLETS
 var EDGE_OFFSET = 60
 var health = 10
+
+const MAX_INITIAL_BULLETS = 10
+const friction = 300
+const acceleration = 1500
 
 
 func _ready():
@@ -72,21 +73,11 @@ func player_movement(delta):
 	if Input.is_action_just_pressed("bullet_count_reset"):
 		bullet_count=MAX_INITIAL_BULLETS
 	
-	#bullet spawn
-	#if Input.is_action_just_pressed("shoot"):
-		#shoot()
 
 func shoot():
 	var b = Bullet.instantiate()
 	add_child(b)
 	b.transform = transform
-
-func _on_Area2D_area_entered(body):
-	print("test")
-	#if body.TYPE == "rec":
-	#	print("rec")
-	#else:
-	#	print("waste")	
 
 func hit(damage):
 	health -= damage
@@ -95,10 +86,11 @@ func hit(damage):
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("recycle") :
+		if get_parent() != null:
+			get_parent().rec_bottles_contor -= 1
 		area.get_parent().queue_free()
 		bullet_count = MAX_INITIAL_BULLETS
 	if area.is_in_group("waste"):
 		hit(area.get_parent().damage)
 		area.get_parent().velocity = velocity
 		velocity = Vector2.ZERO
-		print(velocity)
