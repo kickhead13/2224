@@ -7,6 +7,8 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
+var mob_spawn_rate = 50
+var popup_spawn_rate = 500
 
 var Bullet = BasicBullet
 var player = Player.instantiate()
@@ -94,9 +96,6 @@ func spawn_popup(x,y):
 func _ready():
 	Engine.max_fps=60
 	screen_size = get_viewport_rect().size
-
-	
-	
 	player.position = Vector2(300,500)
 	add_child(player)
 	for i in range(player.MAX_INITIAL_BULLETS / 2):
@@ -111,10 +110,6 @@ func _ready():
 		digit.position = Vector2(screen_size.x-SCORE_EDGE_OFFSET * (iter + 1), SCORE_EDGE_OFFSET)
 		digits.push_back(digit)
 		add_child(digit)
-	
-	spawn_popup(-20, -20)
-	spawn_popup(290, 290)
-	spawn_popup(80, 220)
 
 func refresh_bullet_display():
 	for bullet_display in bullet_displays:
@@ -150,12 +145,12 @@ func update_score_digits(digits):
 
 func _process(delta):
 	screen_size = get_viewport_rect().size
-	if randi_range(0,50) == 0:
+	if randi_range(0,mob_spawn_rate) == 0:
 		spawn_mobs()
+	if randi_range(0, popup_spawn_rate) == 0:
+		spawn_popup(randi_range(POPUP_LOWER_LIMIT, POPUP_UPPER_LIMIT), randi_range(POPUP_LOWER_LIMIT, POPUP_UPPER_LIMIT))
 	if last_score != score:
 		update_score_digits(digits)
-		#init_spawner_pos()
-	#print(Engine.get_frames_per_second())
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
 		player.bullet_count -= 1
