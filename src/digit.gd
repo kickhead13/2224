@@ -13,7 +13,6 @@ func set_val(val):
 		inflate_timer = INFLATE_OFFSET
 
 func _process(delta):
-	print(inflate_timer)
 	if inflate_timer > 0:
 		inflate_timer -= 1
 	if inflate_timer == 0 and scale != Vector2(NORMAL_SCALE, NORMAL_SCALE):
