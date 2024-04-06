@@ -7,9 +7,11 @@ var mouse_position = null
 var screen_size #dimensiunea jocului
 var bullet_count = MAX_INITIAL_BULLETS
 var EDGE_OFFSET = 60
-var health = 10
+var health = 15
+var hearts_count = MAX_INITIAL_HEARTS
 
 const MAX_INITIAL_BULLETS = 10
+const MAX_INITIAL_HEARTS = 10
 const friction = 300
 const acceleration = 1500
 
@@ -18,7 +20,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	if get_parent() != null:
 		EDGE_OFFSET = get_parent().CHARACTER_EDGE_OFFSET
-	
+
+
 func _physics_process(delta):
 	screen_size = get_viewport_rect().size
 	player_movement(delta)
