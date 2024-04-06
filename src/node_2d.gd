@@ -29,6 +29,8 @@ const SCORE_EDGE_OFFSET = 18
 const NUM_OF_DIGITS = 6
 const CHARACTER_EDGE_OFFSET = 60
 const MAX_REC_BOTTLES = 2
+const POPUP_LOWER_LIMIT = -20
+const POPUP_UPPER_LIMIT = 290
 
 
 func spawn_mobs():
@@ -70,7 +72,7 @@ func spawn_mobs():
 			waste_bottle.position.x = x
 		else:
 			waste_bottle.position.x = x_negative
-		
+
 		choose_y = randi() % 2 + 1
 		if choose_y == 1:
 			waste_bottle.position.y = y
@@ -109,8 +111,8 @@ func _ready():
 		digits.push_back(digit)
 		add_child(digit)
 	
-	spawn_popup(100, 150)
-	spawn_popup(330, 200)
+	spawn_popup(-20, -20)
+	spawn_popup(290, 290)
 	spawn_popup(80, 220)
 
 func refresh_bullet_display():
