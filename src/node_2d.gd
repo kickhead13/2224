@@ -7,7 +7,7 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
-var mob_spawn_rate = 50
+var mob_spawn_rate = 100
 var popup_spawn_rate = 500
 
 var Bullet = BasicBullet
@@ -24,9 +24,9 @@ var number_of_mobs = 20
 var rand_scale = [0.6 , 0.7 , 0.8 , 0.9 , 1 , 1.2 , 1.4 , 1.5 , 1.6 , 1.7, 1.8]
 var rand_health = [4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22, 24]
 
-const BULLET_ROW = 30
-const BULLET_COLUMN = 30
-const BULLET_COLUMN_OFFSET = 50
+const BULLET_ROW = 10
+const BULLET_COLUMN = 20
+const BULLET_COLUMN_OFFSET = 20
 const SCORE_EDGE_OFFSET = 18
 const NUM_OF_DIGITS = 6
 const CHARACTER_EDGE_OFFSET = 60
@@ -115,7 +115,7 @@ func refresh_bullet_display():
 	for bullet_display in bullet_displays:
 		if bullet_display != null:
 			bullet_display.queue_free()
-	for i in range((player.bullet_count+1) / 2):
+	for i in range(0, player.bullet_count):
 		var bullet_display=Bullet_Display.instantiate()
 		add_child(bullet_display)
 		bullet_display.position.y = BULLET_ROW

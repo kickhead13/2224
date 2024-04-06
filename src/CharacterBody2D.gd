@@ -5,14 +5,45 @@ var Bullet = preload("res://src/bullet.tscn")
 var input = Vector2.ZERO
 var mouse_position = null
 var screen_size #dimensiunea jocului
-var bullet_count = MAX_INITIAL_BULLETS
+var bullet_count = 10
 var EDGE_OFFSET = 60
-var health = 10
+var max_health = 10
+var health = max_health
+var inverse_control = 1
+var mode = "nothing"
+var MAX_INITIAL_BULLETS = 10
+var friction = 300
 
-const MAX_INITIAL_BULLETS = 10
-const friction = 300
 const acceleration = 1500
+const MALWARE = [
+	"invers_control",
+	"zero_bullets",
+	"refill_hp",
+	"refill_bullet",
+	"double_score",
+	"more_max_bullet",
+	"lower_speed"
+]
+var param1 = 0
 
+func handle_mode():
+	if mode == "invers_control":
+		inverse_control *= -1
+	elif mode == "zero_bullets":
+		bullet_count = 0
+	elif mode == "refill_hp":
+		health = max_health
+	elif mode == "refill_bullet":
+		bullet_count = MAX_INITIAL_BULLETS
+	elif mode == "double_score" and get_parent() != null:
+		get_parent().score *= 2
+	elif mode == "more_max_bullet":
+		MAX_INITIAL_BULLETS += param1
+		bullet_count = MAX_INITIAL_BULLETS
+	elif mode == "lower_speed":
+		if speed > 80:
+			speed /= param1
+	mode = "nothing"
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -20,6 +51,7 @@ func _ready():
 		EDGE_OFFSET = get_parent().CHARACTER_EDGE_OFFSET
 	
 func _physics_process(delta):
+	handle_mode()
 	screen_size = get_viewport_rect().size
 	player_movement(delta)
 	if position.x < EDGE_OFFSET:
@@ -37,14 +69,24 @@ func _physics_process(delta):
 
 func get_input():
 	input = Vector2(0,0)
-	if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right2"):
-		input.x += 1
-	if Input.is_action_pressed("move_left") || Input.is_action_pressed("move_left2"):
-		input.x -= 1
-	if Input.is_action_pressed("move_up") || Input.is_action_pressed("move_up2"):
-		input.y -= 1
-	if Input.is_action_pressed("move_down") || Input.is_action_pressed("move_down2"):
-		input.y += 1
+	if inverse_control == 1:
+		if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right2"):
+			input.x += 1
+		if Input.is_action_pressed("move_left") || Input.is_action_pressed("move_left2"):
+			input.x -= 1
+		if Input.is_action_pressed("move_up") || Input.is_action_pressed("move_up2"):
+			input.y -= 1
+		if Input.is_action_pressed("move_down") || Input.is_action_pressed("move_down2"):
+			input.y += 1
+	else:
+		if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right2"):
+			input.x -= 1
+		if Input.is_action_pressed("move_left") || Input.is_action_pressed("move_left2"):
+			input.x += 1
+		if Input.is_action_pressed("move_up") || Input.is_action_pressed("move_up2"):
+			input.y += 1
+		if Input.is_action_pressed("move_down") || Input.is_action_pressed("move_down2"):
+			input.y -= 1
 	return input.normalized()
 
 

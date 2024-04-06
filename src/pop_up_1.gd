@@ -4,7 +4,6 @@ var Click = preload("res://src/click.tscn")
 var X =preload("res://src/x_node.tscn")
 var exit_status = "no exit status"
 
-
 func _ready():
 	var click = Click.instantiate()
 	click.position = Vector2(80, 290)
@@ -14,14 +13,19 @@ func _ready():
 	add_child(x)
 
 func give_ammo_back():
-	if get_parent() != null and get_parent().get_child(1) != null:
+	if get_parent() != null and get_parent().get_child(1) != null and get_parent().get_child(1).bullet_count > 0:
 		get_parent().get_child(1).bullet_count += 1
 
 func _process(delta):
 	if exit_status == "click":
 		give_ammo_back()
+		if get_parent() != null and get_parent().get_child(1) != null:
+			get_parent().get_child(1).mode = get_parent().get_child(1).MALWARE[randi_range(0, get_parent().get_child(1).MALWARE.size()-1)]
+			if get_parent().get_child(1).mode == "more_max_bullet":
+				get_parent().get_child(1).param1 = randi_range(0,5)
+			elif get_parent().get_child(1).mode == "lower_speed":
+				get_parent().get_child(1).param1 = randi_range(2, 4)
 		queue_free()
 	if exit_status == "X":
-		print("x")
 		give_ammo_back()
 		queue_free()
