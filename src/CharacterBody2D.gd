@@ -34,8 +34,6 @@ func _physics_process(delta):
 		position.x = screen_size.x - EDGE_OFFSET
 		velocity = Vector2.ZERO
 
-
-
 func get_input():
 	input = Vector2(0,0)
 	if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right2"):

@@ -7,10 +7,11 @@ var inflate_timer = INFLATE_OFFSET
 var player_position
 var target_position
 var player_to_follow = null
+var score = 1
 
 const TYPE = "waste"
 const INFLATE_OFFSET = 5
-const SCALE_OFFSET = 1.1
+const SCALE_OFFSET = 1.2
 const NORMAL_SCALE = 1
 const friction = 300
 const BOUNCE_SPEED = 200
@@ -18,6 +19,8 @@ const waste_bottle_types_array = ["res://resources/waste_bottle.png"]
 
 func _ready():
 	$Sprite2D.texture = load(waste_bottle_types_array[randi() % waste_bottle_types_array.size()])
+
+
 
 func _on_body_entered(body):
 	print("test")
@@ -55,7 +58,7 @@ func _on_area_2d_area_entered(area):
 		area.get_parent().queue_free()
 		scale = Vector2(SCALE_OFFSET, SCALE_OFFSET)
 		inflate_timer = INFLATE_OFFSET
-		print(velocity)
+		# print(velocity)
 	
 
 func hit(damage):
@@ -63,4 +66,5 @@ func hit(damage):
 	if health < 0:
 		health = 0
 	if health == 0:
+		get_parent().score += score
 		queue_free()

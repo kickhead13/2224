@@ -7,7 +7,7 @@
 size = Vector2(20, 24.5221)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kp720"]
-size = Vector2(28, 33)
+size = Vector2(26, 30)
 
 [node name="WasteBottle" type="CharacterBody2D"]
 script = ExtResource("1_3ssaf")
@@ -23,7 +23,7 @@ scale = Vector2(1.54708, 1.50884)
 shape = SubResource("RectangleShape2D_kutc5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_kp720")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
