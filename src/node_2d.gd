@@ -19,18 +19,16 @@ const BULLET_COLUMN = 30
 const BULLET_COLUMN_OFFSET = 50
 const SCORE_EDGE_OFFSET = 18
 const NUM_OF_DIGITS = 6
-const BULLET_COLUMN_OFFSET = 50	
 var number_of_mobs = 20
 const CHARACTER_EDGE_OFFSET = 60
 const MAX_REC_BOTTLES = 5
-var screen_size = 0
 
 
 func spawn_mobs():
 	screen_size = get_viewport_rect().size
 	var rec_bottles_contor = 0
 
-  for i in number_of_mobs:
+	for i in number_of_mobs:
 		var choose_mob = randi() % 2 + 1
 		if(choose_mob == 1 && rec_bottles_contor != MAX_REC_BOTTLES):
 			rec_bottles_contor += 1
