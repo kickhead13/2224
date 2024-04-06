@@ -7,7 +7,13 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
+
 var Hearts_Display = preload("res://src/hearts_display.tscn")
+
+var Terminal = preload("res://src/terminal.tscn")
+var mob_spawn_rate = 50
+var popup_spawn_rate = 500
+
 
 var Bullet = BasicBullet
 var player = Player.instantiate()
@@ -23,20 +29,27 @@ var rec_bottles_contor = 0
 var number_of_mobs = 20
 var rand_scale = [0.6 , 0.7 , 0.8 , 0.9 , 1 , 1.2 , 1.4 , 1.5 , 1.6 , 1.7, 1.8]
 var rand_health = [4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22, 24]
+var label = null
 
-const BULLET_ROW = 30
-const BULLET_COLUMN = 30
-const BULLET_COLUMN_OFFSET = 50
+const BULLET_ROW = 10
+const BULLET_COLUMN = 20
+const BULLET_COLUMN_OFFSET = 20
 const SCORE_EDGE_OFFSET = 18
 const NUM_OF_DIGITS = 6
 const CHARACTER_EDGE_OFFSET = 60
 const MAX_REC_BOTTLES = 2
+
 const HEARTS_ROW =70
 const HEARTS_COLUMN = 20
 const HEARTS_COLUMN_OFFSET = 25
 
+const POPUP_LOWER_LIMIT = -20
+const POPUP_UPPER_LIMIT = 290
+
+
 
 func spawn_mobs():
+	print("????")
 	var x=0
 	var y=0
 	var x_negative=0
@@ -75,7 +88,7 @@ func spawn_mobs():
 			waste_bottle.position.x = x
 		else:
 			waste_bottle.position.x = x_negative
-		
+
 		choose_y = randi() % 2 + 1
 		if choose_y == 1:
 			waste_bottle.position.y = y
@@ -95,13 +108,12 @@ func spawn_popup(x,y):
 	add_child(popup)
 
 func _ready():
+	Engine.max_fps=60
 	screen_size = get_viewport_rect().size
-	
-	spawn_mobs()
-	
-	
 	player.position = Vector2(300,500)
 	add_child(player)
+	label = Label.new() 
+	add_child(label)
 	for i in range(player.MAX_INITIAL_BULLETS / 2):
 		var bullet_display=Bullet_Display.instantiate()
 		add_child(bullet_display)
@@ -121,16 +133,12 @@ func _ready():
 		digit.position = Vector2(screen_size.x-SCORE_EDGE_OFFSET * (iter + 1), SCORE_EDGE_OFFSET)
 		digits.push_back(digit)
 		add_child(digit)
-	
-	spawn_popup(100, 150)
-	spawn_popup(330, 200)
-	spawn_popup(80, 220)
 
 func refresh_bullet_display():
 	for bullet_display in bullet_displays:
 		if bullet_display != null:
 			bullet_display.queue_free()
-	for i in range((player.bullet_count+1) / 2):
+	for i in range(0, player.bullet_count):
 		var bullet_display=Bullet_Display.instantiate()
 		add_child(bullet_display)
 		bullet_display.position.y = BULLET_ROW
@@ -173,18 +181,27 @@ func update_score_digits(digits):
 
 func _process(delta):
 	screen_size = get_viewport_rect().size
-	if randi_range(0,50) == 0:
+	if label != null:
+		label.position = Vector2(screen_size.x/2, 0)
+	if randi_range(0,mob_spawn_rate) == 0:
 		spawn_mobs()
+	if randi_range(0, popup_spawn_rate) == 0:
+		spawn_popup(randi_range(POPUP_LOWER_LIMIT, POPUP_UPPER_LIMIT), randi_range(POPUP_LOWER_LIMIT, POPUP_UPPER_LIMIT))
 	if last_score != score:
 		update_score_digits(digits)
-
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
 		player.bullet_count -= 1
+		player.heat += 1
 		var bullet = Bullet.instantiate()
 		bullet.position = player.position
 		bullet.rotation = player.rotation
 		add_child(bullet)
+		if player.heat == player.OVERHEAT:
+			var terminal = Terminal.instantiate()
+			terminal.position = Vector2(screen_size.x-300, screen_size.y-300)
+			add_child(terminal)
+
 	if last_screen_size != screen_size:
 		replace(digits, screen_size)
 	last_screen_size = screen_size

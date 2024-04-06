@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://hkythcdr3feu"]
+
+[ext_resource type="Texture2D" uid="uid://cklymi0fvbjqs" path="res://resources/terminal/background1.png" id="1_bowf0"]
+[ext_resource type="Script" path="res://src/terminal.gd" id="1_k5wq7"]
+[ext_resource type="Texture2D" uid="uid://c0s4u7vyld3lh" path="res://resources/terminal/background2.png" id="2_o54pf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sril4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bowf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_o54pf")
+}],
+"loop": true,
+"name": &"terminal_animation",
+"speed": 10.0
+}]
+
+[node name="Terminal" type="Node2D"]
+script = ExtResource("1_k5wq7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(110, 140)
+sprite_frames = SubResource("SpriteFrames_sril4")
+animation = &"terminal_animation"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 213.0
+offset_bottom = 69.0
+theme_override_colors/font_color = Color(0.929412, 0.823529, 0, 1)
+theme_override_font_sizes/font_size = 9
+text = "system: interrupt transmission...
+system: shooting system failure...
+system: spaceship overheating...
+system: dropping to terminal (please rescue)...
+"
