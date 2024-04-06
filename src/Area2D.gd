@@ -1,5 +1,5 @@
-"""extends Area2D
-
+extends Area2D
+"""
 @export var speed = 200
 var input = Vector2.ZERO
 var velocity = 0
@@ -49,4 +49,18 @@ func player_movement(delta):
 	#update the position of the player, and clamp it so that it can not leave the screen
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO,screen_size)"""
+
+func _ready():
+	input_pickable = true
+
+
+func _on_Area2D_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event.is_action_pressed("mouseleft"): # set this up in project settings
+		print("lesgooo")
+
+
+func _on_input_event(viewport, event, shape_idx):
+	if event.button_mask == 1:# and type_string(typeof(event)) == "InputEventMouseButton":
+		if get_parent() != null and get_parent().get_parent() != null:
+			get_parent().get_parent().exit_status = "click"
 	
