@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwxhi80pdvb0x"]
+
+[ext_resource type="Script" path="res://src/digit.gd" id="1_nd8cm"]
+[ext_resource type="Texture2D" uid="uid://jr17iy88ns3w" path="res://resources/digits/digit0.png" id="1_xd4dl"]
+
+[node name="Node2D" type="RigidBody2D"]
+mass = 0.01
+gravity_scale = 0.0
+script = ExtResource("1_nd8cm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_xd4dl")
