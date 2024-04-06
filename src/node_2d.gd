@@ -7,6 +7,7 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
+var Terminal = preload("res://src/terminal.tscn")
 var mob_spawn_rate = 50
 var popup_spawn_rate = 500
 
@@ -159,10 +160,16 @@ func _process(delta):
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
 		player.bullet_count -= 1
+		player.heat += 1
 		var bullet = Bullet.instantiate()
 		bullet.position = player.position
 		bullet.rotation = player.rotation
 		add_child(bullet)
+		if player.heat == player.OVERHEAT:
+			var terminal = Terminal.instantiate()
+			terminal.position = Vector2(screen_size.x-300, screen_size.y-300)
+			add_child(terminal)
+
 	if last_screen_size != screen_size:
 		replace(digits, screen_size)
 	last_screen_size = screen_size

@@ -13,7 +13,9 @@ var inverse_control = 1
 var mode = "nothing"
 var MAX_INITIAL_BULLETS = 10
 var friction = 300
+var heat = 0
 
+const OVERHEAT = 20
 const acceleration = 1500
 const MALWARE = [
 	"invers_control",
