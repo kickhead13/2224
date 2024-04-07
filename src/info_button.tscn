@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bpb4etpgfldl4" path="res://resources/button_back.png" id="2_8dlhh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3nuhs"]
-size = Vector2(300, 40)
+size = Vector2(173, 40)
 
 [node name="Info_Button" type="Node2D"]
 
@@ -13,18 +13,18 @@ position = Vector2(-2, 0)
 script = ExtResource("1_ygow8")
 
 [node name="ButtonBack" type="Sprite2D" parent="Area2D"]
-position = Vector2(152, 20)
+position = Vector2(89, 21)
 texture = ExtResource("2_8dlhh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(152, 20)
+position = Vector2(89.5, 21)
 shape = SubResource("RectangleShape2D_3nuhs")
 
 [node name="Label" type="Label" parent="Area2D"]
 offset_left = 20.0
-offset_top = 8.0
+offset_top = 9.0
 offset_right = 271.0
-offset_bottom = 47.0
+offset_bottom = 48.0
 text = "Info"
 
 [connection signal="input_event" from="Area2D" to="Area2D" method="_on_input_event"]

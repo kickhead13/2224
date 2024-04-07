@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bpb4etpgfldl4" path="res://resources/button_back.png" id="2_6tjmm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ue5t"]
-size = Vector2(300, 40)
+size = Vector2(282, 40)
 
 [node name="Start_Button" type="Node2D"]
 
@@ -12,11 +12,11 @@ size = Vector2(300, 40)
 script = ExtResource("1_7bw7y")
 
 [node name="ButtonBack" type="Sprite2D" parent="Area2D"]
-position = Vector2(150, 20)
+position = Vector2(87, 20)
 texture = ExtResource("2_6tjmm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(150, 20)
+position = Vector2(141, 20)
 shape = SubResource("RectangleShape2D_0ue5t")
 
 [node name="Label" type="Label" parent="."]

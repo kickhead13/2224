@@ -1,6 +1,8 @@
 extends Node2D
 
 var main_theme_audio = preload("res://resources/sounds/main_theme.wav")
+var ButtonQ = preload("res://src/question_button.tscn")
+
 var main_theme = null
 var index = 0
 
@@ -28,6 +30,19 @@ func _ready():
 	main_theme.autoplay = true
 	add_child(main_theme)
 	index = randi_range(0, questions.size()-1)
+	
+	var correct_answer = questions[index][1]
+	questions[index].shuffle()
+	var iter = 0
+	for answer in questions[index]:
+		if iter != 0:
+			var but1 = ButtonQ.instantiate()
+			but1.position = Vector2(-40, 100 + 40 * (iter-1))
+			but1.get_child(1).text = answer
+			if answer == correct_answer:
+				but1.get_child(0).type = "CORRECT"
+			add_child(but1)
+		iter += 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
