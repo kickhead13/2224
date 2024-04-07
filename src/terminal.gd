@@ -6,16 +6,16 @@ var ButtonQ = preload("res://src/question_button.tscn")
 var main_theme = null
 var index = 0
 
-const questions = [
+var questions = [
 	["for i in [1,2,3]: print(i)","123","51015","234"],
-	["511+5=","60","55","100"],
-	["spceship","a","s","m"],
-	["sta","r","w","aa"],
+	["55+5=","60","55","100"],
+	["sp_ceship","a","s","m"],
+	["sta_","r","w","aa"],
 	["10-10+10-10","0","10","100"],
 	["for a in range(0,2): print(a)","0 1","0 1 2 3","10 11"],
 	["recyc_e","l","e","y"],
 	["_alaxy","g","w","h"],
-	["112=","2","4","112"],
+	["1*1*2=","2","4","112"],
 	["1<<1","2","11","1"],
 	["wxy_","z","a","0"],
 	["10*2","20","100","12"]
@@ -32,16 +32,18 @@ func _ready():
 	index = randi_range(0, questions.size()-1)
 	
 	var correct_answer = questions[index][1]
-	questions[index].shuffle()
+	var vect = []
+	for i in range(1, 4):
+		vect.push_back(questions[index][i])
+	vect.shuffle()
 	var iter = 0
-	for answer in questions[index]:
-		if iter != 0:
-			var but1 = ButtonQ.instantiate()
-			but1.position = Vector2(-40, 100 + 40 * (iter-1))
-			but1.get_child(1).text = answer
-			if answer == correct_answer:
-				but1.get_child(0).type = "CORRECT"
-			add_child(but1)
+	for answer in vect:
+		var but1 = ButtonQ.instantiate()
+		but1.position = Vector2(-40, 100 + 40 * iter-1)
+		but1.get_child(1).text = answer
+		if answer == correct_answer:
+			but1.get_child(0).type = "CORRECT"
+		add_child(but1)
 		iter += 1
 
 

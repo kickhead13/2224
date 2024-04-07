@@ -94,7 +94,7 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 
 func get_input():
-	input = Vector2(0,0)
+	input = Vector2.ZERO
 	if inverse_control == 1:
 		if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right2"):
 			input.x += 1
@@ -115,26 +115,31 @@ func get_input():
 			input.y -= 1
 	return input.normalized()
 
-
 func player_movement(delta):
 	mouse_position = get_global_mouse_position()
 	look_at(mouse_position)
-	input = get_input()
-	#partea care da slow down la caracter
-	if input == Vector2.ZERO:
-		$AnimatedSprite2D.animation = "idle_airship"
-		$AnimatedSprite2D.stop()
-		if velocity.length() > (friction * delta):
-			velocity -= velocity.normalized() * (friction * delta)
-		else:
-			velocity = Vector2.ZERO
-	#partea care da speed la caracter
+	
+	if Input.is_action_just_pressed("dash"):
+		var direction = mouse_position - position
+		velocity += (direction / 20 * acceleration * delta)
 	else:
-		if $AnimatedSprite2D.animation != "moving_airship":
-			$AnimatedSprite2D.animation = "moving_airship"
-			$AnimatedSprite2D.play()
-		velocity += (input * acceleration * delta)
-		velocity = velocity.limit_length(speed)
+	
+		input = get_input()
+			#partea care da slow down la caracter
+		if input == Vector2.ZERO:
+			$AnimatedSprite2D.animation = "idle_airship"
+			$AnimatedSprite2D.stop()
+			if velocity.length() > (friction * delta):
+				velocity -= velocity.normalized() * (friction * delta)
+			else:
+				velocity = Vector2.ZERO
+			#partea care da speed la caracter
+		else:
+			if $AnimatedSprite2D.animation != "moving_airship":
+				$AnimatedSprite2D.animation = "moving_airship"
+				$AnimatedSprite2D.play()
+			velocity += (input * acceleration * delta)
+			velocity = velocity.limit_length(speed)
 	
 	move_and_slide()
 	

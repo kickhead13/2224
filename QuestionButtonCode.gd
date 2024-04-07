@@ -26,6 +26,7 @@ func _on_input_event(viewport, event, shape_idx):
 	if event.button_mask == 1:# and type_string(typeof(event)) == "InputEventMouseButton":
 		if get_parent() != null and get_parent().get_parent() != null and get_parent().get_parent().get_parent() != null and type == "CORRECT" and get_parent().get_parent().get_child(1) != null:
 			get_parent().get_parent().queue_free()
+			get_parent().get_parent().get_child(3).stop()
 			#print(get_parent().get_parent().get_child(3))
 			#print(get_parent().get_parent().get_child(3).stream)
 			get_parent().get_parent().get_parent().get_child(1).heat = 0
