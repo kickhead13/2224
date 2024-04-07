@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csji3y7qyqani"
+path="res://.godot/imported/Wind - background noise.wav-93cf678d9c87e2b29cb20663dc80335f.sample"
+
+[deps]
+
+source_file="res://resources/sounds/Wind - background noise.wav"
+dest_files=["res://.godot/imported/Wind - background noise.wav-93cf678d9c87e2b29cb20663dc80335f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

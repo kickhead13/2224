@@ -1,5 +1,7 @@
 extends Node2D
 
+var main_theme_audio = preload("res://resources/sounds/main_theme.wav")
+var main_theme = null
 var index = 0
 
 const questions = [
@@ -17,10 +19,16 @@ const questions = [
 	["10*2","20","100","12"]
 ]
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play()
+	main_theme = AudioStreamPlayer.new()
+	main_theme.stream = main_theme_audio
+	main_theme.autoplay = true
+	add_child(main_theme)
 	index = randi_range(0, questions.size()-1)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

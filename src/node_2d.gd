@@ -7,8 +7,11 @@ var Rec_Bottle = preload("res://src/rec_bottle.tscn")
 var Waste_Bottle = preload("res://src/waste_bottle.tscn")
 var Digit = preload("res://src/digit.tscn")
 var PopUp = preload("res://src/pop_up_1.tscn")
-
 var Hearts_Display = preload("res://src/hearts_display.tscn")
+var main_theme_audio = preload("res://resources/sounds/main_theme.wav")
+var shoot_effect_audio = preload("res://resources/sounds/Shoot.mp3")
+var question_effect_audio = preload("res://resources/sounds/Emergency Sound.wav")
+
 
 var Terminal = preload("res://src/terminal.tscn")
 var mob_spawn_rate = 400
@@ -31,6 +34,9 @@ var number_of_mobs = 20
 var rand_scale = [0.6 , 0.7 , 0.8 , 0.9 , 1 , 1.2 , 1.4 , 1.5 , 1.6 , 1.7, 1.8]
 var rand_health = [4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22, 24]
 var label = null
+var main_theme = null
+var shoot_effect = null
+var question_effect = null
 
 const BULLET_ROW = 10
 const BULLET_COLUMN = 20
@@ -114,6 +120,11 @@ func _ready():
 	add_child(player)
 	label = Label.new() 
 	add_child(label)
+	main_theme = AudioStreamPlayer.new()
+	main_theme.stream = main_theme_audio
+	main_theme.autoplay = true
+	add_child(main_theme)
+	
 	for i in range(player.MAX_INITIAL_BULLETS / 2):
 		var bullet_display=Bullet_Display.instantiate()
 		add_child(bullet_display)
@@ -200,6 +211,11 @@ func _process(delta):
 		update_score_digits(digits)
 	refresh_bullet_display()
 	if Input.is_action_just_pressed("shoot") && player.bullet_count > 0:
+		shoot_effect = AudioStreamPlayer.new()
+		shoot_effect.stream = shoot_effect_audio
+		shoot_effect.autoplay = true
+		shoot_effect.volume_db = -15
+		add_child(shoot_effect)
 		player.bullet_count -= 1
 		player.heat += 1
 		var bullet = Bullet.instantiate()
@@ -207,6 +223,10 @@ func _process(delta):
 		bullet.rotation = player.rotation
 		add_child(bullet)
 		if player.heat == player.OVERHEAT:
+			question_effect = AudioStreamPlayer.new()
+			question_effect.stream = question_effect_audio
+			question_effect.autoplay = true
+			add_child(question_effect)
 			var terminal = Terminal.instantiate()
 			terminal.position = Vector2(screen_size.x-300, screen_size.y-400)
 			add_child(terminal)
