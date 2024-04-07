@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dqdq3eyhyggkm"
+path="res://.godot/imported/Power Up The Ship.mp3-b95c5f986ba0b906222fc5a27ae0382e.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/Power Up The Ship.mp3"
+dest_files=["res://.godot/imported/Power Up The Ship.mp3-b95c5f986ba0b906222fc5a27ae0382e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
