@@ -3,6 +3,8 @@ extends Node2D
 var Click = preload("res://src/click.tscn")
 var X = preload("res://src/x_node.tscn")
 var exit_status = "no exit status"
+var popup_sound = preload("res://resources/sounds/Popup.wav")
+var pop_sound = null
 
 func _ready():
 	var click = Click.instantiate()
@@ -11,6 +13,11 @@ func _ready():
 	var x = X.instantiate()
 	x.position = Vector2(265, 10)
 	add_child(x)
+	
+	pop_sound = AudioStreamPlayer.new()
+	pop_sound.stream = popup_sound
+	pop_sound.autoplay=true
+	add_child(pop_sound)
 
 func give_ammo_back():
 	if get_parent() != null and get_parent().get_child(1) != null and get_parent().get_child(1).bullet_count > 0:
