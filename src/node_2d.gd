@@ -11,9 +11,10 @@ var PopUp = preload("res://src/pop_up_1.tscn")
 var Hearts_Display = preload("res://src/hearts_display.tscn")
 
 var Terminal = preload("res://src/terminal.tscn")
-var mob_spawn_rate = 50
-var popup_spawn_rate = 500
-
+var mob_spawn_rate = 400
+var mob_drop_off = 30
+var popup_spawn_rate = 1000
+var popup_drop_off = 100
 
 var Bullet = BasicBullet
 var player = Player.instantiate()
@@ -39,13 +40,12 @@ const NUM_OF_DIGITS = 6
 const CHARACTER_EDGE_OFFSET = 60
 const MAX_REC_BOTTLES = 2
 
-const HEARTS_ROW =70
-const HEARTS_COLUMN = 20
-const HEARTS_COLUMN_OFFSET = 25
+const HEARTS_ROW = 35
+const HEARTS_COLUMN = 15
+const HEARTS_COLUMN_OFFSET = 15
 
 const POPUP_LOWER_LIMIT = -20
 const POPUP_UPPER_LIMIT = 290
-
 
 
 func spawn_mobs():
@@ -180,6 +180,15 @@ func update_score_digits(digits):
 		iter -= 1
 
 func _process(delta):
+	
+	if score % 200 == 0:
+		mob_spawn_rate -= mob_drop_off
+		popup_spawn_rate -= popup_drop_off
+		if mob_drop_off > 0:
+			mob_drop_off -= 2
+		if popup_drop_off > 0:
+			popup_drop_off -= 10
+	
 	screen_size = get_viewport_rect().size
 	if label != null:
 		label.position = Vector2(screen_size.x/2, 0)
@@ -199,7 +208,7 @@ func _process(delta):
 		add_child(bullet)
 		if player.heat == player.OVERHEAT:
 			var terminal = Terminal.instantiate()
-			terminal.position = Vector2(screen_size.x-300, screen_size.y-300)
+			terminal.position = Vector2(screen_size.x-300, screen_size.y-400)
 			add_child(terminal)
 
 	if last_screen_size != screen_size:
