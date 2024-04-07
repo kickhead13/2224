@@ -2,12 +2,13 @@ extends CharacterBody2D
 
 @export var speed = 400
 var Bullet = preload("res://src/bullet.tscn")
+var dead_sound = preload("res://resources/sounds/Game Over.wav")
+var over_sound = null
 var input = Vector2.ZERO
 var mouse_position = null
 var screen_size #dimensiunea jocului
 var bullet_count = 10
 var EDGE_OFFSET = 60
-
 var hearts_count = 0
 
 const MAX_INITIAL_HEARTS = 10
@@ -149,6 +150,11 @@ func shoot():
 func hit(damage):
 	health -= damage
 	if health <= 0:
+		over_sound = AudioStreamPlayer.new()
+		over_sound.stream = dead_sound
+		over_sound.autoplay = true
+		add_child(over_sound)
+		OS.delay_msec(1500)
 		get_tree().quit()
 
 func _on_area_2d_area_entered(area):
