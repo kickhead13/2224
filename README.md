@@ -4,6 +4,9 @@
 
 2224 is an Iron Lung / Asteroids (1979) inspired game, with the gameplay similar to that sof Asteroids and the story and ambiance similar to that of Iron Lung. This game has been created by the "Auru Brad" team as part of the [iTec](itec.ro) Game Development Jam.
 
+## Playing
+Our game is available at:
+
 ## Contributing
 Please feel free to contribute to the creation of the game, this is an open source game and it can be a community created one too. Thanks 
 
