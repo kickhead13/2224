@@ -10,6 +10,7 @@ var screen_size #dimensiunea jocului
 var bullet_count = 10
 var EDGE_OFFSET = 60
 var hearts_count = 0
+var dash_timer = 0
 
 const MAX_INITIAL_HEARTS = 10
 
@@ -119,9 +120,13 @@ func player_movement(delta):
 	mouse_position = get_global_mouse_position()
 	look_at(mouse_position)
 	
-	if Input.is_action_just_pressed("dash"):
+	if dash_timer != 0:
+		dash_timer -= 1
+	
+	if Input.is_action_just_pressed("dash") and dash_timer == 0:
 		var direction = mouse_position - position
 		velocity += (direction / 20 * acceleration * delta)
+		dash_timer = 120
 	else:
 	
 		input = get_input()
