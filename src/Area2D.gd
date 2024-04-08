@@ -63,4 +63,5 @@ func _on_input_event(viewport, event, shape_idx):
 	if event.button_mask == 1:# and type_string(typeof(event)) == "InputEventMouseButton":
 		if get_parent() != null and get_parent().get_parent() != null:
 			get_parent().get_parent().exit_status = "click"
+			print(get_parent().get_parent())
 	

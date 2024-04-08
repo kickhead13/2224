@@ -12,6 +12,7 @@ var EDGE_OFFSET = 60
 var hearts_count = 0
 
 const MAX_INITIAL_HEARTS = 10
+var bdamage = 5
 
 var max_health = 10
 var health = max_health
@@ -31,7 +32,9 @@ const MALWARE = [
 	"refill_bullet",
 	"double_score",
 	"more_max_bullet",
-	"lower_speed"
+	"lower_speed",
+	"higher_damage",
+	"extra_health"
 ]
 var param1 = 0
 var label_timer = 180
@@ -67,6 +70,12 @@ func handle_mode():
 	elif mode == "lower_speed":
 		if speed > 150:
 			speed /= param1
+	elif mode == "extra_health":
+		max_health += param1
+		health = max_health
+	elif mode == "higher_damage":
+		bdamage += param1
+	
 	mode = "nothing"
 
 func _ready():

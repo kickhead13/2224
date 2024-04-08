@@ -2,7 +2,7 @@ extends Area2D
 
 var speed = 750
 var timer = 400
-@onready var damage = 5
+var damage = 5
 
 func set_val(val):
 	$Sprite2D.texture = load("res://resources/digits/digit" + val + ".png")
