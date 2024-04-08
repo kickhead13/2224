@@ -14,9 +14,9 @@ var question_effect_audio = preload("res://resources/sounds/Emergency Sound.wav"
 
 
 var Terminal = preload("res://src/terminal.tscn")
-var mob_spawn_rate = 400
+var mob_spawn_rate = 200
 var mob_drop_off = 30
-var popup_spawn_rate = 2000
+var popup_spawn_rate = 1000
 var popup_drop_off = 100
 
 var Bullet = BasicBullet
