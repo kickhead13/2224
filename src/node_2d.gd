@@ -221,6 +221,7 @@ func _process(delta):
 		var bullet = Bullet.instantiate()
 		bullet.position = player.position
 		bullet.rotation = player.rotation
+		bullet.damage = player.bdamage
 		add_child(bullet)
 		if player.heat == player.OVERHEAT:
 			question_effect = AudioStreamPlayer.new()

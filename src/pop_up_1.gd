@@ -32,6 +32,10 @@ func _process(delta):
 				get_parent().get_child(1).param1 = randi_range(0,5)
 			elif get_parent().get_child(1).mode == "lower_speed":
 				get_parent().get_child(1).param1 = randi_range(2, 4)
+			elif get_parent().get_child(1).mode == "higher_damage":
+				get_parent().get_child(1).param1 = randi_range(0, 2)
+			elif get_parent().get_child(1).mode == "extra_health":
+				get_parent().get_child(1).param1 = randi_range(2, 4)
 		queue_free()
 	if exit_status == "X":
 		give_ammo_back()
