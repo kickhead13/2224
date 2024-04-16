@@ -6,7 +6,7 @@
 
 ## Playing
 Our game is available at:
- - https://alexandruana03.itch.io/22242
+ - (Windows) https://alexandruana03.itch.io/22242
 
 ## Contributing
 Please feel free to contribute to the creation of the game, this is an open source game and it can be a community created one too. Thanks 
